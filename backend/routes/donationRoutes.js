@@ -1,10 +1,10 @@
 import express from "express";
-import { getEventDonations, registerDonation } from "../controllers/donationController.js";
+import { getAllDonors, getEventDonations, registerDonation } from "../controllers/donationController.js";
 
 const router = express.Router();
 
 router.post("/donate", registerDonation);
-// router.get("/all", getAllDonors);
+router.get("/all", getAllDonors);
 
 
 router.get('/oneevent', getEventDonations);

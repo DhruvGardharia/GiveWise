@@ -49,3 +49,23 @@ export const getEventDonations = async (req, res) => {
     res.status(500).json({ error: 'Failed to fetch donations to events' });
   }
 };
+
+export const getAllDonors = async (req, res) => {
+  try {
+    const [rows] = await db.execute("SELECT * FROM Donor");
+    res.json(rows);
+  }
+  catch (error) {
+    console.error("Error fetching all donors:", error);
+    res.status(500).json({ message: "Server error" });
+  }
+}
+export const getAllDonations = async (req, res) => {
+  try {
+    const [rows] = await db.execute("SELECT * FROM Funds");
+    res.json(rows);
+  } catch (error) {
+    console.error("Error fetching all donations:", error);
+    res.status(500).json({ message: "Server error" });
+  }
+};
