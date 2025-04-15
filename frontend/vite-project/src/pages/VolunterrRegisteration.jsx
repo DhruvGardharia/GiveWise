@@ -35,7 +35,6 @@
 // };
 
 // export default VolunteerForm;
-
 import React, { useState } from "react";
 import axios from "axios";
 
@@ -44,6 +43,7 @@ const VolunteerForm = () => {
     name: "",
     contact: "",
     email: "",
+    password: "",
   });
 
   const handleChange = (e) => {
@@ -55,7 +55,7 @@ const VolunteerForm = () => {
     try {
       const res = await axios.post("http://localhost:5000/api/volunteers/register", formData);
       alert(res.data.message);
-      setFormData({ name: "", contact: "", email: "" });
+      setFormData({ name: "", contact: "", email: "", password: "" });
     } catch (error) {
       alert("Error: " + (error.response?.data?.message || "Server error"));
     }
@@ -170,7 +170,7 @@ const VolunteerForm = () => {
             </div>
 
             {/* Email Field */}
-            <div style={{ marginBottom: "30px" }}>
+            <div style={{ marginBottom: "20px" }}>
               <label
                 htmlFor="email"
                 style={{
@@ -189,6 +189,39 @@ const VolunteerForm = () => {
                 value={formData.email}
                 onChange={handleChange}
                 placeholder="Enter your email address"
+                required
+                style={{
+                  width: "100%",
+                  padding: "12px",
+                  border: "1px solid #ccc",
+                  borderRadius: "6px",
+                  backgroundColor: "#ffffff",
+                  fontSize: "16px",
+                  color: "#000",
+                }}
+              />
+            </div>
+
+            {/* Password Field */}
+            <div style={{ marginBottom: "30px" }}>
+              <label
+                htmlFor="password"
+                style={{
+                  display: "block",
+                  marginBottom: "8px",
+                  fontWeight: "bold",
+                  color: "#333",
+                }}
+              >
+                Password
+              </label>
+              <input
+                type="password"
+                id="password"
+                name="password"
+                value={formData.password}
+                onChange={handleChange}
+                placeholder="Create a secure password"
                 required
                 style={{
                   width: "100%",

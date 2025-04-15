@@ -45,7 +45,6 @@
 // };
 
 // export default ViewAssignmentsPage;
-
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 
@@ -58,6 +57,30 @@ const ViewAssignmentsPage = () => {
       .then((res) => setAssignments(res.data))
       .catch((err) => console.error("Error fetching assignments:", err));
   }, []);
+
+  const handleDeleteAssignment = (volunteerId, eventId) => {
+    console.log(volunteerId, eventId);
+    axios
+      .post("http://localhost:5000/api/volunteer-event/delete", {
+        Volunteer_id: volunteerId,
+        Event_id: eventId,
+      })
+      .then(() => {
+        setAssignments(
+          assignments.filter(
+            (assignment) =>
+              !(
+                assignment.Volunteer_id === volunteerId &&
+                assignment.Event_id === eventId
+              )
+          )
+        );
+      })
+      .catch((err) => {
+        console.error("Error deleting assignment:", err);
+        alert("Failed to delete assignment. Please try again.");
+      });
+  };
 
   return (
     <div
@@ -119,7 +142,7 @@ const ViewAssignmentsPage = () => {
                     <th style={headerStyle}>Volunteer Name</th>
                     <th style={headerStyle}>Event ID</th>
                     <th style={headerStyle}>Event Name</th>
-                    <th style={headerStyle}>Assigned Date</th>
+                    <th style={headerStyle}>Actions</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -136,7 +159,20 @@ const ViewAssignmentsPage = () => {
                       <td style={cellStyle}>{a.Event_id}</td>
                       <td style={cellStyle}>{a.event_name}</td>
                       <td style={cellStyle}>
-                        {new Date(a.date).toLocaleDateString()}
+                        <button
+                          style={{
+                            color: "grey",
+                            border: "none",
+                            padding: "8px 12px",
+                            borderRadius: "4px",
+                            cursor: "pointer",
+                          }}
+                          onClick={() =>
+                            handleDeleteAssignment(a.Volunteer_id, a.Event_id)
+                          }
+                        >
+                          Delete Assignment
+                        </button>
                       </td>
                     </tr>
                   ))}

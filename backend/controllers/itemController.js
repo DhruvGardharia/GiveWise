@@ -9,3 +9,26 @@ export const getAllItems = async (req, res) => {
     res.status(500).json({ message: "Server error" });
   }
 };
+
+
+export const addItem = async (req, res) => {
+  const { donor_id, name, quantity, date } = req.body;
+
+  if (!name || !quantity || !date) {
+    return res.status(400).json({ message: "Name, quantity, and date are required." });
+  }
+
+  try {
+    const [result] = await pool.query("CALL AddItem(?, ?, ?, ?)", [
+      donor_id || null,
+      name,
+      quantity,
+      date,
+    ]);
+
+    res.status(201).json({ message: "Item added successfully" });
+  } catch (error) {
+    console.error("Error adding item:", error);
+    res.status(500).json({ message: "Server error" });
+  }
+};

@@ -9,6 +9,11 @@ import DonateToEvent from './pages/DonateToEvent';
 import DonationPage from './pages/DonateToEvent';
 import AssignEventPage from './pages/AssignVolunteers';
 import ViewAssignmentsPage from './pages/AllAssignments';
+import LoginPage from './pages/LoginPage';
+import VolunteerDashboard from './pages/VounteerDashboard';
+import AdminDashboard from './pages/AdminPage';
+import LandingPage from './pages/LandingPage';
+import AddItems from './pages/AddItems';
 
 function App() {
   return (
@@ -23,6 +28,12 @@ function App() {
         <Route path="/don" element={<DonationPage />} />
         <Route path="/assign" element={<AssignEventPage />} />
         <Route path="/assigned" element={<ViewAssignmentsPage />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/dash/:token" element={<VolunteerDashboard />} />
+        <Route path="/admin" element={<AdminDashboard />} />
+        <Route path="/" element={<LandingPage/>} />
+        <Route path="/additems" element={<AddItems/>} />
+
       </Routes>
     </BrowserRouter>
   );
