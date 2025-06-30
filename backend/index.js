@@ -5,7 +5,11 @@ dotenv.config();
 
 
 const app = express();
-app.use(cors());
+app.use(cors({
+  origin: "https://give-wise-l57j.vercel.app", // Adjust this to your frontend URL
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  credentials: true,
+}));
 app.use(express.json());
 
 import donationRoutes from "./routes/donationRoutes.js";
