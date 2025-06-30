@@ -8,6 +8,10 @@ const app = express();
 app.use(cors({
   origin: "https://give-wise-l57j.vercel.app", // Adjust this to your frontend URL
   methods: ["GET", "POST", "PUT", "DELETE"],
+  allowedHeaders: ["Content-Type", "Authorization"],
+    exposedHeaders: ["Content-Range", "X-Total-Count"],
+    optionsSuccessStatus: 200,
+    
   credentials: true,
 }));
 app.use(express.json());
